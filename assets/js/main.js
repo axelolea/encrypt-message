@@ -1,3 +1,6 @@
+import {decryptText, encryptText} from "./encrypter.js";
+
+
 const [
     textInput,
     textOutput,
@@ -10,15 +13,17 @@ const [
     '[data-type="encrypt"]',
     '[data-type="decrypt"]',
     '[data-type="copy"]'
-].map( attr => document.querySelector(attr)) as [
-    HTMLTextAreaElement,
-    HTMLTextAreaElement,
-    HTMLButtonElement,
-    HTMLButtonElement,
-    HTMLButtonElement
-]
+].map( attr => document.querySelector(attr))
 
 
 btnCopy.addEventListener('click', async () => {
     await navigator.clipboard.writeText(textOutput.value)
+})
+
+btnEncrypt.addEventListener('click', () => {
+    textOutput.value = encryptText(textInput.value)
+})
+
+btnDecrypt.addEventListener('click', () => {
+    textOutput.value = decryptText(textInput.value)
 })
