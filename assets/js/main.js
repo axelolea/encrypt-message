@@ -1,4 +1,4 @@
-import {decryptText, encryptText} from "./encrypter.js";
+import { decryptText, encryptText } from './encrypter.js';
 
 
 const [
@@ -13,7 +13,7 @@ const [
     '[data-type="encrypt"]',
     '[data-type="decrypt"]',
     '[data-type="copy"]'
-].map( attr => document.querySelector(attr))
+].map( selector => document.querySelector(selector))
 
 
 btnCopy.addEventListener('click', async () => {
