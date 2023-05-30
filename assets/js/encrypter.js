@@ -1,8 +1,13 @@
+import { dictManagement } from './dictManage.js';
+
+
 export const encryptText = text => {
     let encryptText = ''
 
+    const currentDict = dictManagement.getCurrentDict()
+
     for (const letter of text)
-        encryptText = encryptText.concat(window.currentDict[letter] ?? letter);
+        encryptText = encryptText.concat(currentDict[letter] ?? letter);
 
     return encryptText
 }
@@ -10,11 +15,12 @@ export const encryptText = text => {
 
 export const decryptText = text => {
 
-    const findKeys = Object.keys(window.currentDictReverse).reverse()
+    const currentDictReverse = dictManagement.getCurrentReverseDict()
+    const findKeys = Object.keys(currentDictReverse)
     let decryptText = text
 
     for (const key of findKeys)
-        decryptText = decryptText.replaceAll(key, window.currentDictReverse[key])
+        decryptText = decryptText.replaceAll(key, currentDictReverse[key])
 
     return decryptText
 }
