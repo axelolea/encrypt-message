@@ -1,4 +1,5 @@
 import { dictManagement } from './dictManage.js';
+import { getFile } from "./utils.js";
 
 
 const [
@@ -7,6 +8,8 @@ const [
     btnReset,
     btnSave,
     dialogForm,
+    fileBtn,
+    fileInput,
     dialogDict
 ] = [
     '[data-type="open-dialog"]',
@@ -14,38 +17,34 @@ const [
     '[data-type="reset"]',
     '[data-type="save"]',
     '[data-type="form"]',
+    '[data-type="file-btn"]',
+    '[data-type="file-input"]',
     '#dictionary'
 ].map(selector => document.querySelector(selector))
 
-const getInputFragment = () => {
+const inputs = Array.from(dialogForm.querySelectorAll('input'))
+    .reduce((acc, el) => {
+        const idInput = el.id;
+        acc[idInput] = el
+        return acc
+    }, {})
 
-    const inputFragment = document.createDocumentFragment()
-    const dictValues = Object.entries(dictManagement.getCurrentDict())
+export function updateForm(obj = dictManagement.getCurrentDict()){
+    const dictValues = Object.entries(obj)
 
-    dictValues.forEach( item => {
+    dictValues.forEach(item => {
+        const [key, value] = item
+        const input = inputs[key.toLowerCase()]
+        if(!input) return;
 
-        const [key, value] = item;
-        const label = document.createElement('label')
-        label.innerText = key
-
-        const input = document.createElement('input');
         input.value = value;
-        input.name = key;
-
-        const container = document.createElement('div');
-        [label, input].forEach(el => container.appendChild(el));
-
-        inputFragment.appendChild(container)
     })
 
-    return inputFragment
 }
 
-
 btnDialog.addEventListener('click', () => {
-    dialogForm.innerHTML = ''
-    dialogForm.appendChild(getInputFragment())
-    dialogDict.showModal()
+    updateForm()
+    if(!dialogDict.open) dialogDict.showModal()
 })
 
 btnSave.addEventListener('click', () => {
@@ -56,29 +55,28 @@ btnSave.addEventListener('click', () => {
 })
 
 btnReset.addEventListener('click', () => {
-    dictManagement.setCurrentDict()
+    dictManagement.deleteDictionary()
     dialogDict.close()
 })
 
 // Drag an drop Files
 
+fileBtn.addEventListener('click', () => {
+    fileInput.click()
+})
+
 dialogDict.addEventListener('drop', (ev) => {
+    ev.stopPropagation()
     ev.preventDefault()
-    const files = ev.dataTransfer.files
+
+    const files = ev?.dataTransfer?.files
+
     if(!files) return;
 
-    const firstsFile = files[0]
+    const [ file ] = files
 
-    console.log(firstsFile)
-
-    if(firstsFile.type !== 'application/json') return;
-
-    const reader = new FileReader()
-    reader.onloadend = () => {
-        const data = JSON.parse(this.result)
-        console.log(data)
-    }
-    reader.readAsText(firstsFile)
+    if(file.type !== 'application/json') return;
+    getFile(file)
 })
 
 dialogDict.addEventListener('dragover', (ev) => {
