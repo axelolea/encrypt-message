@@ -8,6 +8,7 @@
     <title>Oracle Message Encrypt</title>
     <script src="./assets/js/main.js" type="module"></script>
     <script src="./assets/js/dialog.js" type="module"></script>
+    <link rel="stylesheet" href="./assets/css/styles.css">
 </head>
 <body>
     <textarea data-type="text-input"></textarea>
@@ -16,14 +17,27 @@
     <button data-type="decrypt">Decrypt</button>
     <button data-type="copy">Copy</button>
     <button data-type="open-dialog">Dictionary</button>
-    <dialog id="dictionary">
+    <dialog id="dictionary" open>
         <h3>Dictionary</h3>
         <form data-type="form">
-        <!--    Inyect Inputs    -->
+            <!--    Inyect Inputs    -->
+            <label for="a">a</label>
+            <input type="text" name="a" id="a">
+            <label for="e">e</label>
+            <input type="text" name="e" id="e">
+            <label for="i">i</label>
+            <input type="text" name="i" id="i">
+            <label for="o">o</label>
+            <input type="text" name="o" id="o">
+            <label for="u">u</label>
+            <input type="text" name="u" id="u">
+
         </form>
         <button data-type="save">Save</button>
         <button data-type="reset">Reset</button>
         <button data-type="close">Close</button>
+        <button data-type="file-btn">File</button>
+        <input type="file" data-type="file-input" accept="application/json" hidden>
     </dialog>
 </body>
 </html>
