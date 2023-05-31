@@ -1,19 +1,19 @@
 // Get localstorage values
 
 
-export const getLocalValue = obj => {
-    const localValue = localStorage.getItem(obj.keyLocal)
-    if(Object.values(obj).includes(localValue)) return null
-    return localValue
+export const getLocalValue = (obj, key) => {
+    const localValue = localStorage.getItem(key)
+    const contents = Object.values(obj).includes(localValue)
+    return contents ? localValue : null
 }
 
 
-export const getLocalObject = () => {
-    const localValue = localStorage.getItem('dict');
+export const getLocalObject = ( key ) => {
+    const localValue = localStorage.getItem(key);
     if (localValue === null) return null;
     const localObj = JSON.parse(localValue);
-    if (localObj instanceof Object) return localObj;
-    return null;
+    const isObj = localObj instanceof Object;
+    return isObj ? localObj : null;
 }
 
 
@@ -28,3 +28,5 @@ export const setLocalObject = (obj, key) => {
     const objString = JSON.stringify(obj);
     localStorage.setItem(key, objString);
 }
+
+export const deleteLocal = key => localStorage.removeItem(key)
