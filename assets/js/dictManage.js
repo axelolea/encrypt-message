@@ -1,5 +1,5 @@
-import { defaultDictionary } from './constants.js';
-import { getLocalObject, setLocalObject } from './localValues.js';
+import { defaultDictionary, localStorageKeys } from './constants.js';
+import { getLocalObject, setLocalObject, deleteLocal } from './localValues.js';
 
 
 
@@ -9,7 +9,7 @@ class DictionaryManagement {
     #currentDict;
 
     constructor() {
-        this.#currentDict = getLocalObject() ?? defaultDictionary;
+        this.#currentDict = getLocalObject(localStorageKeys.keyDict) ?? defaultDictionary;
         this.#currentReverseDict = DictionaryManagement.reverseDict(this.#currentDict)
     }
 
@@ -32,28 +32,32 @@ class DictionaryManagement {
     }
 
     setCurrentDict(obj = defaultDictionary){
-
         //Validate dict
-
-        if(!this.verifyDictionary(obj)) return;
+        if(!this.#verifyDictionary(obj)) return;
 
         // Set Dictionary
-        setLocalObject(obj);
+        setLocalObject(obj, localStorageKeys.keyDict);
         this.#currentDict = obj;
         this.#currentReverseDict = DictionaryManagement.reverseDict(obj)
     }
 
-    verifyDictionary(obj){
-
+    #verifyDictionary(obj){
         if(!(obj instanceof Object)) return false
 
         const keys = Object.keys(obj)
+        const values = Object.values(obj)
 
-        if(keys.every(key => key instanceof String && key.length === 1)) return false
+        if(keys.length === 0 || keys.length !== values.length) return false
 
-        console.log('hola')
+        const isValidKey = key => typeof key === "string" && key.length === 1
+        const isValidValue = value => typeof value === "string" && value.length <= 6
 
-        return true
+        return  keys.every(isValidKey) && values.every(isValidValue)
+    }
+
+    deleteDictionary(){
+        deleteLocal(localStorageKeys.keyDict)
+        this.setCurrentDict()
     }
 
 }
