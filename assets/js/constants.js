@@ -11,23 +11,25 @@ export const defaultDictionary = Object.freeze({
 
 const theme = {
     'dark': 'dark',
-    'light': 'light',
-    'keyLocal': 'theme'
+    'light': 'light'
 }
 
 const defaultTheme = theme.dark
 
 const lang = {
     'ES': 'spanish',
-    'EN': 'english',
-    'keyLocal': 'lang'
+    'EN': 'english'
 }
 
 const defaultLang = lang.EN
 
-
+export const localStorageKeys = {
+    'keyLang': 'lang',
+    'keyTheme': 'theme',
+    'keyDict': 'dict'
+}
 
 // Set current values
 
-export const currentLang = getLocalValue(lang) ?? defaultLang;
-export const currentTheme = getLocalValue(theme) ?? defaultTheme;
+export const currentLang = getLocalValue(lang, localStorageKeys.keyLang) ?? defaultLang;
+export const currentTheme = getLocalValue(theme, localStorageKeys.keyTheme) ?? defaultTheme;
