@@ -1,6 +1,5 @@
 import { dictManagement } from './dictManage.js';
 import { getFile } from "./utils.js";
-import { defaultDictionary } from "./constants.js";
 
 
 const [
