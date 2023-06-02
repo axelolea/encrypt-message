@@ -1,5 +1,6 @@
 import { dictManagement } from './dictManage.js';
 import { getFile } from "./utils.js";
+import { defaultDictionary } from "./constants.js";
 
 
 const [
@@ -50,7 +51,7 @@ btnDialog.addEventListener('click', () => {
 btnSave.addEventListener('click', () => {
     const formData = new FormData(dialogForm)
     const newDict = Object.fromEntries(formData);
-    dictManagement.setCurrentDict(newDict)
+    dictManagement.setCurrentDict(newDict);
     dialogDict.close()
 })
 
@@ -81,8 +82,12 @@ dialogDict.addEventListener('drop', (ev) => {
 
 dialogDict.addEventListener('dragover', (ev) => {
     ev.preventDefault()
-    console.log('Estan por aventar')
+    /*Mientras se vea el drag*/
 })
 
 
 btnClose.addEventListener('click', () => dialogDict.close())
+
+dialogDict.addEventListener('click', (e) => {
+    if(e.target === dialogDict) dialogDict.close()
+})
