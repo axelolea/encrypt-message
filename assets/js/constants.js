@@ -1,6 +1,4 @@
 // Default Values
-import { getLocalValue } from './localValues.js';
-
 export const defaultDictionary = Object.freeze({
     "e": "enter",
     "i": "imes",
@@ -9,19 +7,21 @@ export const defaultDictionary = Object.freeze({
     "u": "ufat"
 })
 
-const theme = {
-    'dark': 'dark',
-    'light': 'light'
+export const maxLengthValues = 6
+
+export const theme = {
+    'DARK': 'dark',
+    'LIGHT': 'light'
 }
 
-const defaultTheme = theme.dark
+export const defaultTheme = theme.DARK
 
-const lang = {
+export const lang = {
     'ES': 'spanish',
     'EN': 'english'
 }
 
-const defaultLang = lang.EN
+export const defaultLang = lang.EN
 
 export const localStorageKeys = {
     'keyLang': 'lang',
@@ -29,7 +29,16 @@ export const localStorageKeys = {
     'keyDict': 'dict'
 }
 
-// Set current values
+export const keysDict = Object.keys(defaultDictionary)
 
-export const currentLang = getLocalValue(lang, localStorageKeys.keyLang) ?? defaultLang;
-export const currentTheme = getLocalValue(theme, localStorageKeys.keyTheme) ?? defaultTheme;
+export const boxAlert = '[data-type="box-alert"]'
+export const alertDurationTime = 1400 //ms
+export const alertDelayTime = 300 //ms
+export const alertClasses = {
+    'info': 'info-alert',
+    'warning': 'warning-alert',
+    'success': 'success-alert',
+    'error': 'error-alert',
+    'generic': 'alert',
+    'hidden': 'hidden'
+}

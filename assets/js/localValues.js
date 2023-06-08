@@ -1,6 +1,6 @@
+import { localStorageKeys, lang, theme, defaultTheme, defaultLang, defaultDictionary } from "./constants.js";
+
 // Get localstorage values
-
-
 export const getLocalValue = (obj, key) => {
     const localValue = localStorage.getItem(key)
     const contents = Object.values(obj).includes(localValue)
@@ -30,3 +30,9 @@ export const setLocalObject = (obj, key) => {
 }
 
 export const deleteLocal = key => localStorage.removeItem(key)
+
+// Set current values
+export const currentLang = getLocalValue(lang, localStorageKeys.keyLang) ?? defaultLang;
+export const currentTheme = getLocalValue(theme, localStorageKeys.keyTheme) ?? defaultTheme;
+
+export const currentDict = getLocalObject(localStorageKeys.keyDict) ?? defaultDictionary;
