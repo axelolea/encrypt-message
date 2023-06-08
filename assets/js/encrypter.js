@@ -1,6 +1,5 @@
 import { dictManagement } from './dictManage.js';
 
-
 export const encryptText = text => {
     let encryptText = ''
 
@@ -16,7 +15,7 @@ export const encryptText = text => {
 export const decryptText = text => {
 
     const currentDictReverse = dictManagement.getCurrentReverseDict()
-    const findKeys = Object.keys(currentDictReverse)
+    const findKeys = Object.keys(currentDictReverse).reverse()
     let decryptText = text
 
     for (const key of findKeys)
