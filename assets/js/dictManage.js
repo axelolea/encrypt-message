@@ -1,7 +1,5 @@
-import { defaultDictionary, localStorageKeys } from './constants.js';
-import { getLocalObject, setLocalObject, deleteLocal } from './localValues.js';
-
-
+import { defaultDictionary, localStorageKeys, keysDict, maxLengthValues } from './constants.js';
+import { setLocalObject, deleteLocal, currentDict } from './localValues.js';
 
 class DictionaryManagement {
 
@@ -9,7 +7,7 @@ class DictionaryManagement {
     #currentDict;
 
     constructor() {
-        this.#currentDict = getLocalObject(localStorageKeys.keyDict) ?? defaultDictionary;
+        this.#currentDict = currentDict;
         this.#currentReverseDict = DictionaryManagement.reverseDict(this.#currentDict)
     }
 
@@ -23,17 +21,13 @@ class DictionaryManagement {
 
     // getters
 
-    getCurrentDict(){
-        return this.#currentDict;
-    }
+    getCurrentDict(){ return this.#currentDict }
 
-    getCurrentReverseDict(){
-        return this.#currentReverseDict
-    }
+    getCurrentReverseDict(){ return this.#currentReverseDict }
 
-    setCurrentDict(obj = defaultDictionary){
+    setCurrentDict(obj){
         //Validate dict
-        if(!this.verifyDictionary(obj, true)) return;
+        if(!obj || !this.verifyDictionary(obj, true)) return;
 
         // Set Dictionary
         setLocalObject(obj, localStorageKeys.keyDict);
@@ -44,23 +38,26 @@ class DictionaryManagement {
     verifyDictionary(obj, strict = false){
 
         if(!(obj instanceof Object)) return false
+
         const keys = Object.keys(obj)
         const values = Object.values(obj)
 
         if(keys.length === 0 || keys.length !== values.length) return false
 
         if(strict){
-            const isValidKey = key => typeof key === "string" && key.length === 1
+            const isValidKey = key => typeof key === "string" && key.length === 1;
+            const isValidValue = value => typeof value === "string" && value.length <= maxLengthValues && value.length > 1;
+            const isAllKeys = key => keys.includes(key)
 
-            const isValidValue = value => typeof value === "string" && value.length <= 6
-            return  keys.every(isValidKey) && values.every(isValidValue)
+            return keys.every(isValidKey) && values.every(isValidValue) && keysDict.every(isAllKeys)
         }
         return true
     }
 
     deleteDictionary(){
         deleteLocal(localStorageKeys.keyDict)
-        this.setCurrentDict()
+        this.#currentDict = defaultDictionary;
+        this.#currentReverseDict = DictionaryManagement.reverseDict(defaultDictionary)
     }
 
 }
