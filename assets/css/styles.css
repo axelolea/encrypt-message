@@ -1,7 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Iceland&display=swap');
+
+body
+{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Iceland', cursive;
+    --delay-hidden: 300ms;
+}
+
 form
 {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.alert
+{
+    padding: 15px;
+    border: 1px solid black;
+}
+
+.hidden{
+    opacity: 0;
+    transition-duration: var(--delay-hidden);
 }

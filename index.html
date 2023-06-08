@@ -5,39 +5,53 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
     <title>Oracle Message Encrypt</title>
-    <script src="./assets/js/main.js" type="module"></script>
-    <script src="./assets/js/dialog.js" type="module"></script>
+
+    <script src="assets/js/main.js" type="module"></script>
+    <script src="assets/js/dialog.js" type="module"></script>
+    <script src="assets/js/alertManage.js" type="module"></script>
+
     <link rel="stylesheet" href="./assets/css/styles.css">
 </head>
 <body>
-    <textarea data-type="text-input"></textarea>
-    <textarea data-type="text-output"></textarea>
+    <label for="input">Insert Text</label>
+    <textarea data-type="text-input" id="input"></textarea>
+    <label for="output">Output Text</label>
+    <textarea data-type="text-output" id="output"></textarea>
     <button data-type="encrypt">Encrypt</button>
     <button data-type="decrypt">Decrypt</button>
     <button data-type="copy">Copy</button>
     <button data-type="open-dialog">Dictionary</button>
+    <button data-type="change-lang">EN</button>
+    <button data-type="change-theme">Light</button>
     <dialog id="dictionary">
-        <h3>Dictionary</h3>
-        <form data-type="form">
-            <!--    Inyect Inputs    -->
-            <label for="a">a</label>
-            <input type="text" name="a" id="a">
-            <label for="e">e</label>
-            <input type="text" name="e" id="e">
-            <label for="i">i</label>
-            <input type="text" name="i" id="i">
-            <label for="o">o</label>
-            <input type="text" name="o" id="o">
-            <label for="u">u</label>
-            <input type="text" name="u" id="u">
+        <div>
+            <h3>Dictionary</h3>
 
-        </form>
-        <button data-type="save">Save</button>
-        <button data-type="reset">Reset</button>
-        <button data-type="close">Close</button>
-        <button data-type="file-btn">File</button>
-        <input type="file" data-type="file-input" accept="application/json" hidden>
+            <form data-type="form">
+                <label for="a">a</label>
+                <input type="text" name="a" id="a" placeholder="ai">
+                <label for="e">e</label>
+                <input type="text" name="e" id="e" placeholder="enter">
+                <label for="i">i</label>
+                <input type="text" name="i" id="i" placeholder="imes">
+                <label for="o">o</label>
+                <input type="text" name="o" id="o" placeholder="ober">
+                <label for="u">u</label>
+                <input type="text" name="u" id="u" placeholder="ufat">
+            </form>
+
+            <button data-type="save">Save</button>
+            <button data-type="reset">Reset</button>
+            <button data-type="close">Close</button>
+            <button data-type="file-btn">File</button>
+            <input type="file" data-type="file-input" accept="application/json" hidden>
+        </div>
     </dialog>
+    <div data-type="box-alert">
+        <!-- Box alert inyect alert-->
+    </div>
 </body>
 </html>
